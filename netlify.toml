@@ -1,0 +1,21 @@
+[build]
+  # Publish directory (where your site files are)
+  publish = "woo-quick-links"
+
+  # No build command needed for static site
+  command = ""
+
+# Redirect rules (optional - uncomment if needed)
+# [[redirects]]
+#   from = "/*"
+#   to = "/woo-quick-links/:splat"
+#   status = 200
+
+# Headers for security
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
