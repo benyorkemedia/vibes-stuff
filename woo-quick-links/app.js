@@ -276,6 +276,14 @@ function renderLinksWithSections() {
     // Group links by category
     const categories = ['Platform', 'Analytics', 'Explorers', 'Social'];
 
+    // Map category names to display names
+    const categoryDisplayNames = {
+        'Platform': 'Platform Links',
+        'Analytics': 'Analytics',
+        'Explorers': 'Distribution',
+        'Social': 'Social'
+    };
+
     categories.forEach(category => {
         // Filter links for this category
         const categoryLinks = wooLinks.filter(link => link.category === category);
@@ -284,7 +292,7 @@ function renderLinksWithSections() {
             // Create section header
             const sectionHeader = document.createElement('div');
             sectionHeader.className = 'section-header';
-            sectionHeader.textContent = category;
+            sectionHeader.textContent = categoryDisplayNames[category] || category;
             grid.appendChild(sectionHeader);
 
             // Render differently for Explorers (table) vs others (cards)
