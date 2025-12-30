@@ -253,6 +253,80 @@ header h1 {
     color: #ffffff;
 }
 
+/* Explorer Table Styles */
+.explorer-table {
+    grid-column: 1 / -1;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.explorer-header {
+    display: grid;
+    grid-template-columns: 40px 1fr 150px;
+    gap: 16px;
+    padding: 16px 20px;
+    background: #222;
+    border-bottom: 1px solid #333;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.explorer-row {
+    display: grid;
+    grid-template-columns: 40px 1fr 150px;
+    gap: 16px;
+    padding: 16px 20px;
+    border-bottom: 1px solid #333;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    align-items: center;
+}
+
+.explorer-row:last-child {
+    border-bottom: none;
+}
+
+.explorer-row:hover {
+    background: rgba(0, 169, 222, 0.05);
+    border-left: 3px solid #00A9DE;
+    padding-left: 17px;
+}
+
+.explorer-icon {
+    width: 32px;
+    height: 32px;
+}
+
+.explorer-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 50%;
+}
+
+.explorer-name {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #ffffff;
+}
+
+.explorer-balance {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #00A9DE;
+    text-align: right;
+}
+
+.explorer-balance-header {
+    text-align: right;
+}
+
 /* Responsive design for tablets */
 @media (max-width: 968px) {
     .links-grid {
@@ -297,5 +371,26 @@ header h1 {
     .link-card {
         min-height: 150px;
         padding: 20px;
+    }
+
+    /* Mobile explorer table */
+    .explorer-header,
+    .explorer-row {
+        grid-template-columns: 32px 1fr 100px;
+        gap: 12px;
+        padding: 12px 16px;
+    }
+
+    .explorer-icon {
+        width: 28px;
+        height: 28px;
+    }
+
+    .explorer-name {
+        font-size: 0.9rem;
+    }
+
+    .explorer-balance {
+        font-size: 0.95rem;
     }
 }

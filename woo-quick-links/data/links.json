@@ -70,5 +70,77 @@
         "url": "https://t.me/woo_cngroup",
         "image": "assets/woo-zh-tg.png",
         "category": "Social"
+    },
+    {
+        "name": "Ethereum",
+        "url": "https://etherscan.io/token/0x4691937a7508860f876c9c0a2a617e7d9e945d4b",
+        "image": "assets/chains/ethereum.png",
+        "category": "Explorers",
+        "contractAddress": "0x4691937a7508860f876c9c0a2a617e7d9e945d4b",
+        "tokenBalance": 0
+    },
+    {
+        "name": "BSC",
+        "url": "https://bscscan.com/token/0x4691937a7508860f876c9c0a2a617e7d9e945d4b",
+        "image": "assets/chains/bsc.png",
+        "category": "Explorers",
+        "contractAddress": "0x4691937a7508860f876c9c0a2a617e7d9e945d4b",
+        "tokenBalance": 0
+    },
+    {
+        "name": "Arbitrum",
+        "url": "https://arbiscan.io/token/0xcafcd85d8ca7ad1e1c6f82f651fa15e33aefd07b",
+        "image": "assets/chains/arbitrum.png",
+        "category": "Explorers",
+        "contractAddress": "0xcafcd85d8ca7ad1e1c6f82f651fa15e33aefd07b",
+        "tokenBalance": 0
+    },
+    {
+        "name": "Polygon",
+        "url": "https://polygonscan.com/token/0x1b815d120b3ef02039ee11dc2d33de7aa4a8c603",
+        "image": "assets/chains/polygon.png",
+        "category": "Explorers",
+        "contractAddress": "0x1b815d120b3ef02039ee11dc2d33de7aa4a8c603",
+        "tokenBalance": 0
+    },
+    {
+        "name": "Avalanche",
+        "url": "https://snowtrace.io/token/0xabc9547b534519ff73921b1fba6e672b5f58d083",
+        "image": "assets/chains/avalanche.png",
+        "category": "Explorers",
+        "contractAddress": "0xabc9547b534519ff73921b1fba6e672b5f58d083",
+        "tokenBalance": 0
+    },
+    {
+        "name": "Optimism",
+        "url": "https://optimistic.etherscan.io/token/0x871f2F2ff935FD1eD867842FF2a7bfD051A5E527",
+        "image": "assets/chains/optimism.png",
+        "category": "Explorers",
+        "contractAddress": "0x871f2F2ff935FD1eD867842FF2a7bfD051A5E527",
+        "tokenBalance": 0
+    },
+    {
+        "name": "Base",
+        "url": "https://basescan.org/token/0xf3df0a31ec5ea438150987805e841f960b9471b6",
+        "image": "assets/chains/base.png",
+        "category": "Explorers",
+        "contractAddress": "0xf3df0a31ec5ea438150987805e841f960b9471b6",
+        "tokenBalance": 0
+    },
+    {
+        "name": "Solana",
+        "url": "https://solscan.io/token/Dz8VutERqbHR2aFL5A3s1Ky4dG1unJT1jUFXXPaY9ytX",
+        "image": "assets/chains/solana.png",
+        "category": "Explorers",
+        "contractAddress": "Dz8VutERqbHR2aFL5A3s1Ky4dG1unJT1jUFXXPaY9ytX",
+        "tokenBalance": 0
+    },
+    {
+        "name": "Mantle",
+        "url": "https://explorer.mantle.xyz/token/0xf3df0a31ec5ea438150987805e841f960b9471b6",
+        "image": "assets/chains/mantle.png",
+        "category": "Explorers",
+        "contractAddress": "0xf3df0a31ec5ea438150987805e841f960b9471b6",
+        "tokenBalance": 0
     }
 ]

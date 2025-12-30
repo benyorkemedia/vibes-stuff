@@ -114,6 +114,45 @@ function renderLinks() {
 }
 
 /**
+ * Creates a table row for explorer links
+ * @param {Object} link - Link object with name, url, tokenBalance
+ * @returns {HTMLElement} - The table row element
+ */
+function createExplorerRow(link) {
+    const row = document.createElement('a');
+    row.className = 'explorer-row';
+    row.href = link.url;
+    row.target = '_blank';
+    row.rel = 'noopener noreferrer';
+    row.setAttribute('data-category', link.category);
+
+    // Network icon
+    const iconCell = document.createElement('div');
+    iconCell.className = 'explorer-icon';
+    const icon = document.createElement('img');
+    icon.src = link.image;
+    icon.alt = link.name;
+    iconCell.appendChild(icon);
+
+    // Network name
+    const nameCell = document.createElement('div');
+    nameCell.className = 'explorer-name';
+    nameCell.textContent = link.name;
+
+    // Token balance
+    const balanceCell = document.createElement('div');
+    balanceCell.className = 'explorer-balance';
+    balanceCell.textContent = link.tokenBalance ? formatNumber(link.tokenBalance) : '-';
+
+    // Assemble row
+    row.appendChild(iconCell);
+    row.appendChild(nameCell);
+    row.appendChild(balanceCell);
+
+    return row;
+}
+
+/**
  * Renders links organized by sections with headers
  */
 function renderLinksWithSections() {
@@ -121,7 +160,7 @@ function renderLinksWithSections() {
     grid.innerHTML = '';
 
     // Group links by category
-    const categories = ['Platform', 'Analytics', 'Social'];
+    const categories = ['Platform', 'Analytics', 'Explorers', 'Social'];
 
     categories.forEach(category => {
         // Filter links for this category
@@ -134,11 +173,36 @@ function renderLinksWithSections() {
             sectionHeader.textContent = category;
             grid.appendChild(sectionHeader);
 
-            // Add cards for this category
-            categoryLinks.forEach(link => {
-                const card = createLinkCard(link);
-                grid.appendChild(card);
-            });
+            // Render differently for Explorers (table) vs others (cards)
+            if (category === 'Explorers') {
+                // Create table container for explorers
+                const tableContainer = document.createElement('div');
+                tableContainer.className = 'explorer-table';
+
+                // Add table header
+                const headerRow = document.createElement('div');
+                headerRow.className = 'explorer-header';
+                headerRow.innerHTML = `
+                    <div class="explorer-icon-header"></div>
+                    <div class="explorer-name-header">Network</div>
+                    <div class="explorer-balance-header">Quantity</div>
+                `;
+                tableContainer.appendChild(headerRow);
+
+                // Add explorer rows
+                categoryLinks.forEach(link => {
+                    const row = createExplorerRow(link);
+                    tableContainer.appendChild(row);
+                });
+
+                grid.appendChild(tableContainer);
+            } else {
+                // Add cards for non-explorer categories
+                categoryLinks.forEach(link => {
+                    const card = createLinkCard(link);
+                    grid.appendChild(card);
+                });
+            }
         }
     });
 }
