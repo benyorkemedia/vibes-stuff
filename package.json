@@ -1,0 +1,11 @@
+{
+  "name": "quick-woo-links",
+  "version": "1.0.0",
+  "description": "Quick WOO Links - Token balance tracker",
+  "scripts": {
+    "update-balances": "node .github/scripts/fetch-balances.js"
+  },
+  "dependencies": {
+    "ethers": "^6.16.0"
+  }
+}
