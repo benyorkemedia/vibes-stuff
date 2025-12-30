@@ -116,9 +116,10 @@ function renderLinks() {
 /**
  * Creates a table row for explorer links
  * @param {Object} link - Link object with name, url, tokenBalance
+ * @param {number} totalSupply - Total circulating supply for percentage calculation
  * @returns {HTMLElement} - The table row element
  */
-function createExplorerRow(link) {
+function createExplorerRow(link, totalSupply) {
     const row = document.createElement('a');
     row.className = 'explorer-row';
     row.href = link.url;
@@ -144,10 +145,21 @@ function createExplorerRow(link) {
     balanceCell.className = 'explorer-balance';
     balanceCell.textContent = link.tokenBalance ? formatNumber(link.tokenBalance) : '-';
 
+    // Percentage of circulating supply
+    const percentageCell = document.createElement('div');
+    percentageCell.className = 'explorer-percentage';
+    if (link.tokenBalance && totalSupply > 0) {
+        const percentage = ((link.tokenBalance / totalSupply) * 100).toFixed(1);
+        percentageCell.textContent = `${percentage}%`;
+    } else {
+        percentageCell.textContent = '-';
+    }
+
     // Assemble row
     row.appendChild(iconCell);
     row.appendChild(nameCell);
     row.appendChild(balanceCell);
+    row.appendChild(percentageCell);
 
     return row;
 }
@@ -317,12 +329,16 @@ function renderLinksWithSections() {
                     <div class="explorer-icon-header"></div>
                     <div class="explorer-name-header">Network</div>
                     <div class="explorer-balance-header">Quantity</div>
+                    <div class="explorer-percentage-header">% of Supply</div>
                 `;
                 tableContainer.appendChild(headerRow);
 
+                // Calculate total supply for percentage
+                const totalSupply = sortedExplorers.reduce((sum, link) => sum + (link.tokenBalance || 0), 0);
+
                 // Add explorer rows (already sorted)
                 sortedExplorers.forEach(link => {
-                    const row = createExplorerRow(link);
+                    const row = createExplorerRow(link, totalSupply);
                     tableContainer.appendChild(row);
                 });
 

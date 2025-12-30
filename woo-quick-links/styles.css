@@ -282,7 +282,7 @@ header h1 {
 
 .explorer-header {
     display: grid;
-    grid-template-columns: 40px 1fr 150px;
+    grid-template-columns: 40px 1fr 150px 100px;
     gap: 16px;
     padding: 16px 20px;
     background: #222;
@@ -296,7 +296,7 @@ header h1 {
 
 .explorer-row {
     display: grid;
-    grid-template-columns: 40px 1fr 150px;
+    grid-template-columns: 40px 1fr 150px 100px;
     gap: 16px;
     padding: 16px 20px;
     border-bottom: 1px solid #333;
@@ -342,6 +342,17 @@ header h1 {
 }
 
 .explorer-balance-header {
+    text-align: right;
+}
+
+.explorer-percentage {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #888;
+    text-align: right;
+}
+
+.explorer-percentage-header {
     text-align: right;
 }
 
@@ -404,8 +415,8 @@ header h1 {
     /* Mobile explorer table */
     .explorer-header,
     .explorer-row {
-        grid-template-columns: 32px 1fr 100px;
-        gap: 12px;
+        grid-template-columns: 32px 1fr 85px 70px;
+        gap: 8px;
         padding: 12px 16px;
     }
 
@@ -419,6 +430,10 @@ header h1 {
     }
 
     .explorer-balance {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
+    }
+
+    .explorer-percentage {
+        font-size: 0.85rem;
     }
 }
