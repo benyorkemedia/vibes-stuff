@@ -1,0 +1,191 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: #000000;
+    color: #ffffff;
+    min-height: 100vh;
+    padding: 20px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Background WOO token decoration */
+body::before {
+    content: '';
+    position: fixed;
+    bottom: -150px;
+    right: -150px;
+    width: 600px;
+    height: 600px;
+    background-image: url('./assets/woo-token.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 1;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Main container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+/* Page header */
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #00A9DE;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+/* WOO logo in header */
+.logo {
+    height: 40px;
+    width: auto;
+    /* Apply blue color filter to white SVG logo */
+    filter: brightness(0) saturate(100%) invert(53%) sepia(95%) saturate(1822%) hue-rotate(163deg) brightness(97%) contrast(101%);
+}
+
+/* 3x3 Grid layout */
+.links-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 40px;
+}
+
+/* Individual link card */
+.link-card {
+    background: #1a1a1a;
+    border: 2px solid #333;
+    border-radius: 12px;
+    padding: 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    position: relative; /* For absolute positioning of category tag */
+}
+
+/* Hover effect */
+.link-card:hover {
+    transform: translateY(-4px);
+    border-color: #00A9DE;
+    box-shadow: 0 8px 24px rgba(0, 169, 222, 0.3);
+    background: #222;
+}
+
+/* Category tag in top-right corner */
+.category-tag {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    color: #000000;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Category color coding using WOO blue palette */
+.link-card[data-category="Platform"] .category-tag {
+    background: #D4F5FC; /* Blue 50 - lightest */
+}
+
+.link-card[data-category="Analytics"] .category-tag {
+    background: #0076A0; /* Blue 200 */
+    color: #ffffff;
+}
+
+.link-card[data-category="Social"] .category-tag {
+    background: #004F6E; /* Blue 300 - darkest */
+    color: #ffffff;
+}
+
+/* Card image */
+.card-image {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 16px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+/* SVG logos (WOOFi logos that are already blue) */
+.card-image.svg-logo {
+    /* Don't apply filter - these SVGs are already blue */
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+/* Dune logos with white circular background */
+.card-image.dune-logo {
+    background: #ffffff;
+    border-radius: 50%;
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+}
+
+/* Card title */
+.card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    color: #ffffff;
+}
+
+/* Responsive design for tablets */
+@media (max-width: 968px) {
+    .links-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+}
+
+/* Responsive design for mobile */
+@media (max-width: 640px) {
+    .links-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    header h1 {
+        font-size: 1.75rem;
+    }
+
+    .link-card {
+        min-height: 150px;
+        padding: 20px;
+    }
+}
