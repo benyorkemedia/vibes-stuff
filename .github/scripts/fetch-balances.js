@@ -116,13 +116,13 @@ async function fetchCirculatingSupply() {
         const response = await fetch('https://sapi.woo.network/token/circulating_supply');
         const data = await response.json();
 
-        if (data && data.circulating_supply) {
-            const circulatingSupply = data.circulating_supply;
-            console.log(`\n✓ Circulating Supply: ${circulatingSupply.toLocaleString()} WOO`);
-            return circulatingSupply;
+        // API returns a plain number, not an object with circulating_supply field
+        if (typeof data === 'number' && data > 0) {
+            console.log(`\n✓ Circulating Supply: ${data.toLocaleString()} WOO`);
+            return data;
         }
 
-        throw new Error('Invalid response from WOO Network API');
+        throw new Error(`Invalid response from WOO Network API: ${JSON.stringify(data)}`);
     } catch (error) {
         console.error(`✗ Failed to fetch circulating supply: ${error.message}`);
         return 0;
