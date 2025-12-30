@@ -153,6 +153,120 @@ function createExplorerRow(link) {
 }
 
 /**
+ * Renders a pie chart showing token distribution across chains
+ * @param {Array} explorerLinks - Array of explorer link objects with tokenBalance
+ */
+function renderDistributionChart(explorerLinks) {
+    // Create chart container
+    const chartContainer = document.createElement('div');
+    chartContainer.className = 'chart-container';
+    chartContainer.innerHTML = `
+        <canvas id="distribution-chart"></canvas>
+    `;
+
+    // Get data for chart
+    const labels = explorerLinks.map(link => link.name);
+    const data = explorerLinks.map(link => link.tokenBalance || 0);
+
+    // Chain-specific colors
+    const chainColors = {
+        'Ethereum': '#627EEA',
+        'BSC': '#F3BA2F',
+        'Arbitrum': '#28A0F0',
+        'Polygon': '#8247E5',
+        'Avalanche': '#E84142',
+        'Optimism': '#FF0420',
+        'Base': '#0052FF',
+        'Solana': '#14F195',
+        'Mantle': '#000000'
+    };
+
+    const colors = explorerLinks.map(link => chainColors[link.name] || '#00A9DE');
+
+    // Wait for next tick to ensure canvas is in DOM
+    setTimeout(() => {
+        const ctx = document.getElementById('distribution-chart');
+        if (!ctx) return;
+
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: data,
+                    backgroundColor: colors,
+                    borderColor: '#1a1a1a',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                color: '#ffffff',
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            color: '#ffffff',
+                            font: {
+                                family: "'IBM Plex Sans', sans-serif",
+                                size: 13
+                            },
+                            padding: 15,
+                            usePointStyle: true,
+                            pointStyle: 'circle',
+                            generateLabels: (chart) => {
+                                const data = chart.data;
+                                const total = data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                return data.labels.map((label, i) => {
+                                    const value = data.datasets[0].data[i];
+                                    const percentage = ((value / total) * 100).toFixed(1);
+                                    return {
+                                        text: `${label} (${percentage}%)`,
+                                        fillStyle: data.datasets[0].backgroundColor[i],
+                                        strokeStyle: data.datasets[0].backgroundColor[i],
+                                        fontColor: '#ffffff',
+                                        hidden: false,
+                                        index: i
+                                    };
+                                });
+                            }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: '#222',
+                        titleColor: '#00A9DE',
+                        bodyColor: '#ffffff',
+                        borderColor: '#333',
+                        borderWidth: 1,
+                        padding: 12,
+                        displayColors: true,
+                        titleFont: {
+                            family: "'IBM Plex Sans', sans-serif",
+                            size: 13
+                        },
+                        bodyFont: {
+                            family: "'IBM Plex Sans', sans-serif",
+                            size: 12
+                        },
+                        callbacks: {
+                            label: (context) => {
+                                const value = context.parsed;
+                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                const percentage = ((value / total) * 100).toFixed(1);
+                                return `${formatNumber(value)} WOO (${percentage}%)`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }, 0);
+
+    return chartContainer;
+}
+
+/**
  * Renders links organized by sections with headers
  */
 function renderLinksWithSections() {
@@ -175,6 +289,15 @@ function renderLinksWithSections() {
 
             // Render differently for Explorers (table) vs others (cards)
             if (category === 'Explorers') {
+                // Sort explorers by token balance (highest to lowest)
+                const sortedExplorers = [...categoryLinks].sort((a, b) =>
+                    (b.tokenBalance || 0) - (a.tokenBalance || 0)
+                );
+
+                // Add pie chart above explorer table
+                const chartContainer = renderDistributionChart(sortedExplorers);
+                grid.appendChild(chartContainer);
+
                 // Create table container for explorers
                 const tableContainer = document.createElement('div');
                 tableContainer.className = 'explorer-table';
@@ -189,8 +312,8 @@ function renderLinksWithSections() {
                 `;
                 tableContainer.appendChild(headerRow);
 
-                // Add explorer rows
-                categoryLinks.forEach(link => {
+                // Add explorer rows (already sorted)
+                sortedExplorers.forEach(link => {
                     const row = createExplorerRow(link);
                     tableContainer.appendChild(row);
                 });
