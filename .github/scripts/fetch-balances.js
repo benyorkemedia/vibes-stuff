@@ -121,40 +121,16 @@ async function updateBalances() {
     // Get all explorer links
     const explorerLinks = links.filter(link => link.category === 'Explorers' && link.contractAddress);
 
-    // Fetch balances for all chains (excluding Ethereum initially)
-    const bridgedBalances = [];
-
+    // Fetch balances for all chains
     for (let link of explorerLinks) {
-        if (link.name === 'Ethereum') {
-            continue; // Skip Ethereum for now, we'll calculate it later
-        }
-
         if (link.name === 'Solana') {
             link.tokenBalance = await fetchSolanaTotalSupply(link.contractAddress);
         } else {
             link.tokenBalance = await fetchEVMTotalSupply(link.name, link.contractAddress);
         }
 
-        bridgedBalances.push(link.tokenBalance);
-
         // Small delay to avoid rate limiting
         await new Promise(resolve => setTimeout(resolve, 500));
-    }
-
-    // Now fetch Ethereum total supply and calculate circulating supply
-    const ethereumLink = explorerLinks.find(link => link.name === 'Ethereum');
-    if (ethereumLink) {
-        const ethereumTotalSupply = await fetchEVMTotalSupply('Ethereum', ethereumLink.contractAddress);
-
-        // Calculate sum of all bridged tokens
-        const totalBridged = bridgedBalances.reduce((sum, balance) => sum + balance, 0);
-
-        // Ethereum circulating supply = Total supply - bridged tokens
-        ethereumLink.tokenBalance = ethereumTotalSupply - totalBridged;
-
-        console.log(`\n📊 Ethereum Total Supply: ${ethereumTotalSupply.toLocaleString()} WOO`);
-        console.log(`📊 Total Bridged: ${totalBridged.toLocaleString()} WOO`);
-        console.log(`📊 Ethereum Circulating: ${ethereumLink.tokenBalance.toLocaleString()} WOO`);
     }
 
     // Sort explorer links by token balance (highest to lowest)
