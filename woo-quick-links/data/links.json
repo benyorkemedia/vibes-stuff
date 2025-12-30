@@ -72,12 +72,12 @@
         "category": "Social"
     },
     {
-        "name": "Ethereum",
-        "url": "https://etherscan.io/token/0x4691937a7508860f876c9c0a2a617e7d9e945d4b",
-        "image": "assets/chains/ethereum.png",
+        "name": "Arbitrum",
+        "url": "https://arbiscan.io/token/0xcafcd85d8ca7ad1e1c6f82f651fa15e33aefd07b",
+        "image": "assets/chains/arbitrum.png",
         "category": "Explorers",
-        "contractAddress": "0x4691937a7508860f876c9c0a2a617e7d9e945d4b",
-        "tokenBalance": 3000000000
+        "contractAddress": "0xcafcd85d8ca7ad1e1c6f82f651fa15e33aefd07b",
+        "tokenBalance": 485786155.3597008
     },
     {
         "name": "BSC",
@@ -88,22 +88,6 @@
         "tokenBalance": 163588395.95866308
     },
     {
-        "name": "Arbitrum",
-        "url": "https://arbiscan.io/token/0xcafcd85d8ca7ad1e1c6f82f651fa15e33aefd07b",
-        "image": "assets/chains/arbitrum.png",
-        "category": "Explorers",
-        "contractAddress": "0xcafcd85d8ca7ad1e1c6f82f651fa15e33aefd07b",
-        "tokenBalance": 485786155.3597008
-    },
-    {
-        "name": "Polygon",
-        "url": "https://polygonscan.com/token/0x1b815d120b3ef02039ee11dc2d33de7aa4a8c603",
-        "image": "assets/chains/polygon.png",
-        "category": "Explorers",
-        "contractAddress": "0x1b815d120b3ef02039ee11dc2d33de7aa4a8c603",
-        "tokenBalance": 26168175.220246986
-    },
-    {
         "name": "Avalanche",
         "url": "https://snowtrace.io/token/0xabc9547b534519ff73921b1fba6e672b5f58d083",
         "image": "assets/chains/avalanche.png",
@@ -112,12 +96,12 @@
         "tokenBalance": 44825248.89335962
     },
     {
-        "name": "Optimism",
-        "url": "https://optimistic.etherscan.io/token/0x871f2F2ff935FD1eD867842FF2a7bfD051A5E527",
-        "image": "assets/chains/optimism.png",
+        "name": "Polygon",
+        "url": "https://polygonscan.com/token/0x1b815d120b3ef02039ee11dc2d33de7aa4a8c603",
+        "image": "assets/chains/polygon.png",
         "category": "Explorers",
-        "contractAddress": "0x871f2F2ff935FD1eD867842FF2a7bfD051A5E527",
-        "tokenBalance": 2225633.8947588177
+        "contractAddress": "0x1b815d120b3ef02039ee11dc2d33de7aa4a8c603",
+        "tokenBalance": 26168175.220246986
     },
     {
         "name": "Base",
@@ -136,11 +120,27 @@
         "tokenBalance": 3101087.725364827
     },
     {
+        "name": "Optimism",
+        "url": "https://optimistic.etherscan.io/token/0x871f2F2ff935FD1eD867842FF2a7bfD051A5E527",
+        "image": "assets/chains/optimism.png",
+        "category": "Explorers",
+        "contractAddress": "0x871f2F2ff935FD1eD867842FF2a7bfD051A5E527",
+        "tokenBalance": 2225633.8947588177
+    },
+    {
         "name": "Mantle",
         "url": "https://explorer.mantle.xyz/token/0xf3df0a31ec5ea438150987805e841f960b9471b6",
         "image": "assets/chains/mantle.png",
         "category": "Explorers",
         "contractAddress": "0xf3df0a31ec5ea438150987805e841f960b9471b6",
         "tokenBalance": 200108.790268
+    },
+    {
+        "name": "Ethereum",
+        "url": "https://etherscan.io/token/0x4691937a7508860f876c9c0a2a617e7d9e945d4b",
+        "image": "assets/chains/ethereum.png",
+        "category": "Explorers",
+        "contractAddress": "0x4691937a7508860f876c9c0a2a617e7d9e945d4b",
+        "tokenBalance": -737332087.3990161
     }
 ]
