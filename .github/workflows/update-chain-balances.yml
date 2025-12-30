@@ -1,0 +1,33 @@
+name: Update WOO Token Chain Balances
+
+on:
+  schedule:
+    # Run daily at 12:00 UTC
+    - cron: '0 12 * * *'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  update-balances:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install ethers
+
+      - name: Fetch token balances
+        run: node .github/scripts/fetch-balances.js
+
+      - name: Commit and push if changed
+        run: |
+          git config --global user.name 'GitHub Actions Bot'
+          git config --global user.email 'actions@github.com'
+          git add woo-quick-links/data/links.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update WOO token balances [automated]" && git push)
