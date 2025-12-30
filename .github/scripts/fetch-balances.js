@@ -109,6 +109,28 @@ async function fetchSolanaTotalSupply(tokenAddress) {
 }
 
 /**
+ * Fetches WOO circulating supply from WOO Network API
+ */
+async function fetchCirculatingSupply() {
+    try {
+        const response = await fetch('https://sapi.woo.network/token/total_supply');
+        const data = await response.json();
+
+        if (data && data.total_supply) {
+            // Circulating supply = Total supply - 300 million locked
+            const circulatingSupply = data.total_supply - 300000000;
+            console.log(`\n✓ Circulating Supply: ${circulatingSupply.toLocaleString()} WOO`);
+            return circulatingSupply;
+        }
+
+        throw new Error('Invalid response from WOO Network API');
+    } catch (error) {
+        console.error(`✗ Failed to fetch circulating supply: ${error.message}`);
+        return 0;
+    }
+}
+
+/**
  * Main function to update all chain balances
  */
 async function updateBalances() {
@@ -121,16 +143,41 @@ async function updateBalances() {
     // Get all explorer links
     const explorerLinks = links.filter(link => link.category === 'Explorers' && link.contractAddress);
 
-    // Fetch balances for all chains
+    // First, fetch circulating supply from WOO Network API
+    const circulatingSupply = await fetchCirculatingSupply();
+
+    // Fetch balances for all non-Ethereum chains
+    const bridgedBalances = [];
+
     for (let link of explorerLinks) {
+        if (link.name === 'Ethereum') {
+            continue; // Skip Ethereum, we'll calculate it at the end
+        }
+
         if (link.name === 'Solana') {
             link.tokenBalance = await fetchSolanaTotalSupply(link.contractAddress);
         } else {
             link.tokenBalance = await fetchEVMTotalSupply(link.name, link.contractAddress);
         }
 
+        bridgedBalances.push(link.tokenBalance);
+
         // Small delay to avoid rate limiting
         await new Promise(resolve => setTimeout(resolve, 500));
+    }
+
+    // Calculate Ethereum unbridged amount
+    const ethereumLink = explorerLinks.find(link => link.name === 'Ethereum');
+    if (ethereumLink && circulatingSupply > 0) {
+        const totalBridged = bridgedBalances.reduce((sum, balance) => sum + balance, 0);
+        ethereumLink.tokenBalance = circulatingSupply - totalBridged;
+
+        console.log(`\n📊 Circulating Supply: ${circulatingSupply.toLocaleString()} WOO`);
+        console.log(`📊 Total Bridged: ${totalBridged.toLocaleString()} WOO`);
+        console.log(`📊 Ethereum Unbridged: ${ethereumLink.tokenBalance.toLocaleString()} WOO`);
+    } else if (ethereumLink) {
+        // Fallback: fetch Ethereum balance directly if API fails
+        ethereumLink.tokenBalance = await fetchEVMTotalSupply('Ethereum', ethereumLink.contractAddress);
     }
 
     // Sort explorer links by token balance (highest to lowest)
