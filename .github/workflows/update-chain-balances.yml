@@ -20,7 +20,7 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: npm install ethers
+        run: npm install
 
       - name: Fetch token balances
         run: node .github/scripts/fetch-balances.js
