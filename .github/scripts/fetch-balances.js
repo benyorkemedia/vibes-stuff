@@ -113,12 +113,11 @@ async function fetchSolanaTotalSupply(tokenAddress) {
  */
 async function fetchCirculatingSupply() {
     try {
-        const response = await fetch('https://sapi.woo.network/token/total_supply');
+        const response = await fetch('https://sapi.woo.network/token/circulating_supply');
         const data = await response.json();
 
-        if (data && data.total_supply) {
-            // Circulating supply = Total supply - 300 million locked
-            const circulatingSupply = data.total_supply - 300000000;
+        if (data && data.circulating_supply) {
+            const circulatingSupply = data.circulating_supply;
             console.log(`\n✓ Circulating Supply: ${circulatingSupply.toLocaleString()} WOO`);
             return circulatingSupply;
         }
