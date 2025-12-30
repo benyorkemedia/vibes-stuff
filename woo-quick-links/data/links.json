@@ -1,0 +1,56 @@
+[
+    {
+        "name": "WOOFi Pro",
+        "url": "https://pro.woofi.com/en/",
+        "image": "assets/woofi-pro.svg",
+        "category": "Platform"
+    },
+    {
+        "name": "Starchild",
+        "url": "https://iamstarchild.com/",
+        "image": "assets/starchild.png",
+        "category": "Platform"
+    },
+    {
+        "name": "WOOFi Dashboard",
+        "url": "https://woofi.com/swap/dashboard",
+        "image": "assets/woofi-dashboard.svg",
+        "category": "Analytics"
+    },
+    {
+        "name": "WOOFi Swap Dune",
+        "url": "https://dune.com/woofianalytics/woofi-dashboard",
+        "image": "assets/woofi-swap-dune.png",
+        "category": "Analytics"
+    },
+    {
+        "name": "WOOFi Stake Dune",
+        "url": "https://dune.com/woofianalytics/woofi-staking",
+        "image": "assets/woofi-stake-dune.png",
+        "category": "Analytics"
+    },
+    {
+        "name": "WOOFi Buyback Dune",
+        "url": "https://dune.com/woofianalytics/woo-buyback-and-burn",
+        "image": "assets/woofi-buyback-dune.png",
+        "category": "Analytics"
+    },
+    {
+        "name": "WOO Stake",
+        "url": "https://woofi.com/swap/stake",
+        "image": "assets/woofi-stake.svg",
+        "category": "Platform"
+    },
+    {
+        "name": "WOOFi on x.com",
+        "url": "https://x.com/_WOOFi",
+        "image": "assets/woofi-x.png",
+        "category": "Social"
+    },
+    {
+        "name": "Starchild on x.com",
+        "url": "https://x.com/StarchildOnX",
+        "image": "assets/starchild-x.png",
+        "category": "Social"
+    }
+]

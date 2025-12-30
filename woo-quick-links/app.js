@@ -1,66 +1,62 @@
-// Array of WOO-related links (hardcoded for Phase 1)
-const wooLinks = [
-    {
-        name: "WOOFi Pro",
-        url: "https://pro.woofi.com/en/",
-        image: "assets/woofi-pro.svg",
-        category: "Platform",
-        imageClass: "svg-logo"
-    },
-    {
-        name: "Starchild",
-        url: "https://iamstarchild.com/",
-        image: "assets/starchild.png",
-        category: "Platform"
-    },
-    {
-        name: "WOOFi Dashboard",
-        url: "https://woofi.com/swap/dashboard",
-        image: "assets/woofi-dashboard.svg",
-        category: "Analytics",
-        imageClass: "svg-logo"
-    },
-    {
-        name: "WOOFi Swap Dune",
-        url: "https://dune.com/woofianalytics/woofi-dashboard",
-        image: "assets/woofi-swap-dune.png",
-        category: "Analytics",
-        imageClass: "dune-logo"
-    },
-    {
-        name: "WOOFi Stake Dune",
-        url: "https://dune.com/woofianalytics/woofi-staking",
-        image: "assets/woofi-stake-dune.png",
-        category: "Analytics",
-        imageClass: "dune-logo"
-    },
-    {
-        name: "WOOFi Buyback Dune",
-        url: "https://dune.com/woofianalytics/woo-buyback-and-burn",
-        image: "assets/woofi-buyback-dune.png",
-        category: "Analytics",
-        imageClass: "dune-logo"
-    },
-    {
-        name: "WOO Stake",
-        url: "https://woofi.com/swap/stake",
-        image: "assets/woofi-stake.svg",
-        category: "Platform",
-        imageClass: "svg-logo"
-    },
-    {
-        name: "WOOFi on x.com",
-        url: "https://x.com/_WOOFi",
-        image: "assets/woofi-x.png",
-        category: "Social"
-    },
-    {
-        name: "Starchild on x.com",
-        url: "https://x.com/StarchildOnX",
-        image: "assets/starchild-x.png",
-        category: "Social"
+// Array of WOO-related links (loaded from JSON)
+let wooLinks = [];
+
+/**
+ * Loads links from JSON file
+ * @returns {Promise<Array>} - Array of link objects
+ */
+async function loadLinks() {
+    try {
+        const response = await fetch('data/links.json');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const links = await response.json();
+        return links;
+    } catch (error) {
+        console.error('Error loading links:', error);
+        // Show error message to user
+        showError('Failed to load links. Please refresh the page.');
+        return [];
     }
-];
+}
+
+/**
+ * Displays an error message to the user
+ * @param {string} message - Error message to display
+ */
+function showError(message) {
+    const grid = document.getElementById('links-grid');
+    grid.innerHTML = `
+        <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #888;">
+            <p style="font-size: 1.2rem; margin-bottom: 16px;">${message}</p>
+            <button onclick="location.reload()" style="padding: 10px 20px; background: #00A9DE; border: none; border-radius: 6px; color: white; font-family: 'IBM Plex Sans', sans-serif; cursor: pointer;">
+                Retry
+            </button>
+        </div>
+    `;
+}
+
+/**
+ * Auto-detects the appropriate image class based on file and URL
+ * @param {string} imagePath - Path to the image file
+ * @param {string} url - The link URL
+ * @returns {string} - CSS class name for special treatment, or empty string
+ */
+function getImageClass(imagePath, url) {
+    // Dune logos - detect by URL domain
+    if (url.includes('dune.com')) {
+        return 'dune-logo';
+    }
+
+    // SVG logos - detect by file extension
+    if (imagePath.endsWith('.svg')) {
+        return 'svg-logo';
+    }
+
+    // Default - no special class
+    return '';
+}
 
 /**
  * Creates a link card element
@@ -76,14 +72,11 @@ function createLinkCard(link) {
     card.rel = 'noopener noreferrer'; // Security best practice for target="_blank"
     card.setAttribute('data-category', link.category); // Add category data attribute for styling
 
-    // Create category tag in top-right corner
-    const categoryTag = document.createElement('div');
-    categoryTag.className = 'category-tag';
-    categoryTag.textContent = link.category;
-
     // Create image element
     const img = document.createElement('img');
-    img.className = link.imageClass ? `card-image ${link.imageClass}` : 'card-image';
+    // Auto-detect image class based on file type and URL
+    const imageClass = getImageClass(link.image, link.url);
+    img.className = imageClass ? `card-image ${imageClass}` : 'card-image';
     img.src = link.image;
     img.alt = link.name;
     img.loading = 'lazy'; // Lazy load images for better performance
@@ -94,7 +87,6 @@ function createLinkCard(link) {
     title.textContent = link.name;
 
     // Assemble the card
-    card.appendChild(categoryTag);
     card.appendChild(img);
     card.appendChild(title);
 
@@ -118,5 +110,100 @@ function renderLinks() {
     });
 }
 
+/**
+ * Renders links organized by sections with headers
+ */
+function renderLinksWithSections() {
+    const grid = document.getElementById('links-grid');
+    grid.innerHTML = '';
+
+    // Group links by category
+    const categories = ['Platform', 'Analytics', 'Social'];
+
+    categories.forEach(category => {
+        // Filter links for this category
+        const categoryLinks = wooLinks.filter(link => link.category === category);
+
+        if (categoryLinks.length > 0) {
+            // Create section header
+            const sectionHeader = document.createElement('div');
+            sectionHeader.className = 'section-header';
+            sectionHeader.textContent = category;
+            grid.appendChild(sectionHeader);
+
+            // Add cards for this category
+            categoryLinks.forEach(link => {
+                const card = createLinkCard(link);
+                grid.appendChild(card);
+            });
+        }
+    });
+}
+
+/**
+ * Filters link cards by category
+ * @param {string} category - Category to filter by, or 'all' to show all
+ */
+function filterLinks(category) {
+    if (category === 'all') {
+        // Re-render with sections when showing all
+        renderLinksWithSections();
+    } else {
+        // Re-render without sections
+        renderLinks();
+
+        // Hide cards that don't match the category
+        const cards = document.querySelectorAll('.link-card');
+        cards.forEach(card => {
+            const cardCategory = card.getAttribute('data-category');
+            if (cardCategory === category) {
+                card.classList.remove('hidden');
+            } else {
+                card.classList.add('hidden');
+            }
+        });
+    }
+}
+
+/**
+ * Sets up filter button event listeners
+ */
+function initializeFilters() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Remove active class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+
+            // Add active class to clicked button
+            button.classList.add('active');
+
+            // Get the filter category from data-filter attribute
+            const filterCategory = button.getAttribute('data-filter');
+
+            // Apply the filter
+            filterLinks(filterCategory);
+        });
+    });
+}
+
 // Initialize the page when DOM is fully loaded
-document.addEventListener('DOMContentLoaded', renderLinks);
+document.addEventListener('DOMContentLoaded', async () => {
+    // Show loading state
+    const grid = document.getElementById('links-grid');
+    grid.innerHTML = `
+        <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #888;">
+            <p style="font-size: 1.2rem;">Loading links...</p>
+        </div>
+    `;
+
+    // Load links from JSON
+    wooLinks = await loadLinks();
+
+    // If links loaded successfully, render them
+    if (wooLinks.length > 0) {
+        renderLinksWithSections(); // Start with sections since "All" is default
+        initializeFilters();
+    }
+});
