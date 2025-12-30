@@ -72,6 +72,14 @@
         "category": "Social"
     },
     {
+        "name": "Ethereum",
+        "url": "https://etherscan.io/token/0x4691937a7508860f876c9c0a2a617e7d9e945d4b",
+        "image": "assets/chains/ethereum.png",
+        "category": "Explorers",
+        "contractAddress": "0x4691937a7508860f876c9c0a2a617e7d9e945d4b",
+        "tokenBalance": 3000000000
+    },
+    {
         "name": "Arbitrum",
         "url": "https://arbiscan.io/token/0xcafcd85d8ca7ad1e1c6f82f651fa15e33aefd07b",
         "image": "assets/chains/arbitrum.png",
@@ -134,13 +142,5 @@
         "category": "Explorers",
         "contractAddress": "0xf3df0a31ec5ea438150987805e841f960b9471b6",
         "tokenBalance": 200108.790268
-    },
-    {
-        "name": "Ethereum",
-        "url": "https://etherscan.io/token/0x4691937a7508860f876c9c0a2a617e7d9e945d4b",
-        "image": "assets/chains/ethereum.png",
-        "category": "Explorers",
-        "contractAddress": "0x4691937a7508860f876c9c0a2a617e7d9e945d4b",
-        "tokenBalance": -737332087.3990161
     }
 ]
