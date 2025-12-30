@@ -1,3 +1,6 @@
+// Import API functions
+import { fetchWOOMetrics, formatNumber, formatCurrency } from './js/api.js';
+
 // Array of WOO-related links (loaded from JSON)
 let wooLinks = [];
 
@@ -166,6 +169,66 @@ function filterLinks(category) {
 }
 
 /**
+ * Renders WOO token stats
+ * @param {Object} metrics - Token metrics data
+ */
+function renderStats(metrics) {
+    const container = document.getElementById('stats-container');
+
+    container.innerHTML = `
+        <div class="stat-card">
+            <div class="stat-label">Circ. Supply</div>
+            <div class="stat-value">${formatNumber(metrics.circulatingSupply)}</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Burned Amount</div>
+            <div class="stat-value">${formatNumber(metrics.burnedAmount)}</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">FDV</div>
+            <div class="stat-value">${formatCurrency(metrics.fdv)}</div>
+        </div>
+    `;
+}
+
+/**
+ * Shows loading state for stats
+ */
+function showStatsLoading() {
+    const container = document.getElementById('stats-container');
+    container.innerHTML = '<div class="stats-loading">Loading metrics...</div>';
+}
+
+/**
+ * Shows error state for stats
+ * @param {Function} retryFunction - Function to call on retry
+ */
+function showStatsError(retryFunction) {
+    const container = document.getElementById('stats-container');
+    container.innerHTML = `
+        <div class="stats-error">
+            <p>Failed to load metrics</p>
+            <button onclick="window.location.reload()">Retry</button>
+        </div>
+    `;
+}
+
+/**
+ * Loads and displays WOO token stats
+ */
+async function loadStats() {
+    showStatsLoading();
+
+    try {
+        const metrics = await fetchWOOMetrics();
+        renderStats(metrics);
+    } catch (error) {
+        console.error('Error loading stats:', error);
+        showStatsError();
+    }
+}
+
+/**
  * Sets up filter button event listeners
  */
 function initializeFilters() {
@@ -190,7 +253,7 @@ function initializeFilters() {
 
 // Initialize the page when DOM is fully loaded
 document.addEventListener('DOMContentLoaded', async () => {
-    // Show loading state
+    // Show loading state for links
     const grid = document.getElementById('links-grid');
     grid.innerHTML = `
         <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #888;">
@@ -198,8 +261,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         </div>
     `;
 
-    // Load links from JSON
-    wooLinks = await loadLinks();
+    // Load stats and links in parallel
+    const [linksResult] = await Promise.all([
+        loadLinks(),
+        loadStats()
+    ]);
+
+    wooLinks = linksResult;
 
     // If links loaded successfully, render them
     if (wooLinks.length > 0) {

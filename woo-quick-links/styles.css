@@ -65,6 +65,73 @@ header h1 {
     filter: brightness(0) saturate(100%) invert(53%) sepia(95%) saturate(1822%) hue-rotate(163deg) brightness(97%) contrast(101%);
 }
 
+/* Stats container */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.stat-card {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    border-color: #00A9DE;
+    transform: translateY(-2px);
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.stat-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #00A9DE;
+}
+
+.stats-loading {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 20px;
+    color: #888;
+}
+
+.stats-error {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 20px;
+    color: #ff6b6b;
+}
+
+.stats-error button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background: #00A9DE;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-family: 'IBM Plex Sans', sans-serif;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.stats-error button:hover {
+    background: #0088b3;
+}
+
 /* Filter bar */
 .filter-bar {
     display: flex;
@@ -200,6 +267,20 @@ header h1 {
 
 /* Responsive design for mobile */
 @media (max-width: 640px) {
+    .stats-container {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-bottom: 24px;
+    }
+
+    .stat-card {
+        padding: 16px;
+    }
+
+    .stat-value {
+        font-size: 1.5rem;
+    }
+
     .filter-bar {
         justify-content: center;
     }
