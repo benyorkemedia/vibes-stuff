@@ -1,6 +1,6 @@
 [
     {
-        "name": "WOOFi Pro",
+        "name": "WOOFi",
         "url": "https://pro.woofi.com/en/",
         "image": "assets/woofi-pro.svg",
         "category": "Platform"
@@ -51,6 +51,24 @@
         "name": "Starchild on x.com",
         "url": "https://x.com/StarchildOnX",
         "image": "assets/starchild-x.png",
+        "category": "Social"
+    },
+    {
+        "name": "Telegram",
+        "url": "https://t.me/woo_english",
+        "image": "assets/woo-tg.png",
+        "category": "Social"
+    },
+    {
+        "name": "The Cantina (Discord)",
+        "url": "https://discord.gg/cantina",
+        "image": "assets/discord.png",
+        "category": "Social"
+    },
+    {
+        "name": "华语社区 (Telegram)",
+        "url": "https://t.me/woo_cngroup",
+        "image": "assets/woo-zh-tg.png",
         "category": "Social"
     }
 ]
