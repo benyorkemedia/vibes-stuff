@@ -140,6 +140,20 @@ function createExplorerRow(link, totalSupply) {
     nameCell.className = 'explorer-name';
     nameCell.textContent = link.name;
 
+    // Contract address
+    const addressCell = document.createElement('div');
+    addressCell.className = 'explorer-address';
+    if (link.contractAddress) {
+        // Shorten address for display (first 6 + last 4 characters)
+        const shortAddress = link.contractAddress.length > 12
+            ? `${link.contractAddress.slice(0, 6)}...${link.contractAddress.slice(-4)}`
+            : link.contractAddress;
+        addressCell.textContent = shortAddress;
+        addressCell.title = link.contractAddress; // Show full address on hover
+    } else {
+        addressCell.textContent = '-';
+    }
+
     // Token balance
     const balanceCell = document.createElement('div');
     balanceCell.className = 'explorer-balance';
@@ -158,6 +172,7 @@ function createExplorerRow(link, totalSupply) {
     // Assemble row
     row.appendChild(iconCell);
     row.appendChild(nameCell);
+    row.appendChild(addressCell);
     row.appendChild(balanceCell);
     row.appendChild(percentageCell);
 
@@ -328,6 +343,7 @@ function renderLinksWithSections() {
                 headerRow.innerHTML = `
                     <div class="explorer-icon-header"></div>
                     <div class="explorer-name-header">Network</div>
+                    <div class="explorer-address-header">Contract</div>
                     <div class="explorer-balance-header">Quantity</div>
                     <div class="explorer-percentage-header">% of Supply</div>
                 `;
