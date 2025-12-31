@@ -355,6 +355,37 @@ header h1 {
     font-weight: 400;
     color: #888;
     font-family: 'Courier New', monospace;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.address-text {
+    flex-shrink: 0;
+}
+
+.copy-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 2px 4px;
+    font-size: 0.9rem;
+    opacity: 0.5;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+
+.copy-btn:hover {
+    opacity: 1;
+    background: rgba(0, 169, 222, 0.1);
+}
+
+.copy-btn.copied {
+    opacity: 1;
+    color: #4ade80;
 }
 
 .explorer-balance {

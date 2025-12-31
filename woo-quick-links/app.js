@@ -148,7 +148,44 @@ function createExplorerRow(link, totalSupply) {
         const shortAddress = link.contractAddress.length > 12
             ? `${link.contractAddress.slice(0, 6)}...${link.contractAddress.slice(-4)}`
             : link.contractAddress;
-        addressCell.textContent = shortAddress;
+
+        // Create address text span
+        const addressText = document.createElement('span');
+        addressText.textContent = shortAddress;
+        addressText.className = 'address-text';
+
+        // Create copy button
+        const copyBtn = document.createElement('button');
+        copyBtn.className = 'copy-btn';
+        copyBtn.innerHTML = '📋';
+        copyBtn.title = 'Copy address';
+        copyBtn.setAttribute('aria-label', 'Copy contract address');
+
+        // Add click handler for copying
+        copyBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            try {
+                await navigator.clipboard.writeText(link.contractAddress);
+                copyBtn.innerHTML = '✓';
+                copyBtn.classList.add('copied');
+
+                setTimeout(() => {
+                    copyBtn.innerHTML = '📋';
+                    copyBtn.classList.remove('copied');
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy:', err);
+                copyBtn.innerHTML = '✗';
+                setTimeout(() => {
+                    copyBtn.innerHTML = '📋';
+                }, 2000);
+            }
+        });
+
+        addressCell.appendChild(addressText);
+        addressCell.appendChild(copyBtn);
         addressCell.title = link.contractAddress; // Show full address on hover
     } else {
         addressCell.textContent = '-';
