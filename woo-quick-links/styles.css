@@ -501,16 +501,39 @@ header h1 {
         font-size: 0.8rem;
     }
 
-    /* Hide contract column on very small screens */
+    /* Extra small screens - tighter layout but keep all columns */
     @media (max-width: 480px) {
         .explorer-header,
         .explorer-row {
-            grid-template-columns: 28px minmax(60px, 1fr) minmax(75px, 0.9fr) 55px;
+            grid-template-columns: 24px minmax(50px, 0.9fr) minmax(60px, 0.6fr) minmax(65px, 0.8fr) 50px;
+            gap: 6px;
+            padding: 10px 8px;
         }
 
-        .explorer-address-header,
+        .explorer-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .explorer-name {
+            font-size: 0.8rem;
+        }
+
         .explorer-address {
-            display: none;
+            font-size: 0.65rem;
+        }
+
+        .explorer-address .copy-btn {
+            font-size: 0.75rem;
+            padding: 0px 1px;
+        }
+
+        .explorer-balance {
+            font-size: 0.8rem;
+        }
+
+        .explorer-percentage {
+            font-size: 0.75rem;
         }
     }
 }
