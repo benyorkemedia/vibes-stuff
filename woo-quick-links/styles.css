@@ -293,13 +293,14 @@ header h1 {
     background: #1a1a1a;
     border: 1px solid #333;
     border-radius: 12px;
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
 .explorer-header {
     display: grid;
-    grid-template-columns: 40px 1fr 120px 150px 100px;
-    gap: 16px;
+    grid-template-columns: 40px minmax(80px, 1fr) minmax(100px, 0.8fr) minmax(100px, 0.9fr) 80px;
+    gap: 12px;
     padding: 16px 20px;
     background: #222;
     border-bottom: 1px solid #333;
@@ -312,8 +313,8 @@ header h1 {
 
 .explorer-row {
     display: grid;
-    grid-template-columns: 40px 1fr 120px 150px 100px;
-    gap: 16px;
+    grid-template-columns: 40px minmax(80px, 1fr) minmax(100px, 0.8fr) minmax(100px, 0.9fr) 80px;
+    gap: 12px;
     padding: 16px 20px;
     border-bottom: 1px solid #333;
     text-decoration: none;
@@ -469,29 +470,47 @@ header h1 {
     /* Mobile explorer table */
     .explorer-header,
     .explorer-row {
-        grid-template-columns: 32px 1fr 80px 85px 70px;
-        gap: 6px;
-        padding: 12px 16px;
+        grid-template-columns: 28px minmax(60px, 1fr) minmax(70px, 0.7fr) minmax(70px, 0.8fr) 55px;
+        gap: 8px;
+        padding: 12px 12px;
     }
 
     .explorer-icon {
-        width: 28px;
-        height: 28px;
+        width: 24px;
+        height: 24px;
     }
 
     .explorer-name {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
     }
 
     .explorer-address {
-        font-size: 0.75rem;
+        font-size: 0.7rem;
+    }
+
+    .explorer-address .copy-btn {
+        font-size: 0.8rem;
+        padding: 1px 2px;
     }
 
     .explorer-balance {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
     }
 
     .explorer-percentage {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
+    }
+
+    /* Hide contract column on very small screens */
+    @media (max-width: 480px) {
+        .explorer-header,
+        .explorer-row {
+            grid-template-columns: 28px minmax(60px, 1fr) minmax(75px, 0.9fr) 55px;
+        }
+
+        .explorer-address-header,
+        .explorer-address {
+            display: none;
+        }
     }
 }
