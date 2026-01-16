@@ -77,7 +77,7 @@
         "image": "assets/chains/ethereum.png",
         "category": "Explorers",
         "contractAddress": "0x4691937a7508860f876c9c0a2a617e7d9e945d4b",
-        "tokenBalance": 1153419377.2932887
+        "tokenBalance": 1152486747.2610712
     },
     {
         "name": "Arbitrum",
@@ -117,7 +117,7 @@
         "image": "assets/chains/base.png",
         "category": "Explorers",
         "contractAddress": "0xf3df0a31ec5ea438150987805e841f960b9471b6",
-        "tokenBalance": 10655191.616524
+        "tokenBalance": 11264932.26175
     },
     {
         "name": "Solana",
