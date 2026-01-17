@@ -77,7 +77,7 @@
         "image": "assets/chains/ethereum.png",
         "category": "Explorers",
         "contractAddress": "0x4691937a7508860f876c9c0a2a617e7d9e945d4b",
-        "tokenBalance": 1152486747.2610712
+        "tokenBalance": 3000000000
     },
     {
         "name": "Arbitrum",
